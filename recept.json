@@ -1,0 +1,18 @@
+[
+  { 
+    "title": "Csirkepaprikás", 
+    "ingredients": ["csirke", "paprika", "tejföl", "hagyma"],
+    "description": "A csirkét darabold fel, pirítsd meg hagymán, add hozzá a paprikát és fűszereket. Végül tejföllel forrald össze. Elkészítési idő: kb. 60 perc."
+  },
+  { 
+    "title": "Palacsinta", 
+    "ingredients": ["liszt", "tojás", "tej", "cukor"],
+    "description": "A hozzávalókat keverd össze simára, majd egyenként süsd ki a palacsintákat közepes lángon. Elkészítési idő: kb. 30 perc."
+  },
+  { 
+    "title": "Gulyásleves", 
+    "ingredients": ["marhahús", "burgonya", "répa", "paprika"],
+    "description": "A húst pirítsd le, majd add hozzá a zöldségeket és fűszereket. Lassú tűzön főzd 2 órán át. Elkészítési idő: kb. 2 óra."
+  }
+]
+

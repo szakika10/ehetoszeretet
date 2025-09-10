@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <title>Receptkereső</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      max-width: 800px;
+    }
+    h1 {
+      text-align: center;
+    }
+    #searchInput {
+      width: 70%;
+      padding: 10px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 15px;
+      font-size: 16px;
+      margin-left: 5px;
+      cursor: pointer;
+    }
+    .recipe {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 15px 0;
+      background: #f9f9f9;
+    }
+    .recipe h3 {
+      margin: 0 0 10px;
+    }
+    .recipe p {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Receptkereső</h1>
+  <div style="text-align:center; margin-bottom: 20px;">
+    <input type="text" id="searchInput" placeholder="Írd be az összetevőt vagy címet...">
+    <button onclick="search()">Keresés</button>
+  </div>
+  <div id="results"></div>
+
+  <script>
+    let recipes = [];
+
+    // JSON betöltése
+    fetch('recipes.json')
+      .then(response => response.json())
+      .then(data => { recipes = data; displayAll(); });
+
+    // Alapértelmezésben az összes receptet mutatja
+    function displayAll() {
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = '';
+      recipes.forEach(r => {
+        const div = document.createElement('div');
+        div.className = 'recipe';
+        div.innerHTML = `
+          <h3>${r.title}</h3>
+          <p><strong>Hozzávalók:</strong> ${r.ingredients.join(', ')}</p>
+          <p><strong>Elkészítés:</strong> ${r.description}</p>
+        `;
+        resultsDiv.appendChild(div);
+      });
+    }
+
+    // Keresés futtatása
+    function search() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = '';
+
+      const results = recipes.filter(r =>
+        r.title.toLowerCase().includes(query) ||
+        r.ingredients.some(i => i.toLowerCase().includes(query)) ||
+        r.description.toLowerCase().includes(query)
+      );
+
+      if (results.length === 0) {
+        resultsDiv.innerHTML = '<p>Nincs találat.</p>';
+      } else {
+        results.forEach(r => {
+          const div = document.createElement('div');
+          div.className = 'recipe';
+          div.innerHTML = `
+            <h3>${r.title}</h3>
+            <p><strong>Hozzávalók:</strong> ${r.ingredients.join(', ')}</p>
+            <p><strong>Elkészítés:</strong> ${r.description}</p>
+          `;
+          resultsDiv.appendChild(div);
+        });
+      }
+    }
+  </script>
+</body>
+</html>
+
